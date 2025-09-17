@@ -1,0 +1,48 @@
+name: CI/CD - Build, Test, and Deploy
+
+# Triggers: Run on push to main or pull requests to main
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+# Environment: Use Node.js (latest LTS for stability)
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v4  # Latest version of checkout action
+
+      # Step 2: Set up Node.js (v18 or v20 for React 18)
+      - name: Set up Node.js
+        uses: actions/setup-node@v4  # Latest version of setup-node action
+        with:
+          node-version: '18'  # Or '20' for latest LTS
+          cache: 'npm'  # Cache npm dependencies for faster runs
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci  # 'npm ci' for clean install (faster and reproducible)
+
+      # Step 4: Run tests
+      - name: Run tests
+        run: npm test  # Assumes you have tests; add -- --coverage for coverage report
+
+      # Step 5: Build the app
+      - name: Build app
+        run: npm run build  # Uses your 'build' script
+
+      # Step 6: Deploy to GitHub Pages (only on push to main, not PRs)
+      - name: Deploy to GitHub Pages
+        if: github.ref == 'refs/heads/main'  # Only deploy on main branch pushes
+        uses: peaceiris/actions-gh-pages@v3  # Alternative to gh-pages package for reliability
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}  # Built-in secret for auth
+          publish_dir: ./build  # Folder to deploy
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'Automated deployment: {{ github.sha }}'
