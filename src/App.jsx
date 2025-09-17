@@ -4,7 +4,7 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import About from './components/About';
 import Skills from './components/Skills';
-import Projects from './components/Projects';
+import { Projects } from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
