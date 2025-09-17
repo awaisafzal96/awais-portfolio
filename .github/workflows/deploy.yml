@@ -3,9 +3,11 @@ name: CI/CD - Build, Test, and Deploy
 # Triggers: Run on push to main or pull requests to main
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
+    branches:
+      - main
 
 # Environment: Use Node.js (latest LTS for stability)
 jobs:
@@ -30,7 +32,7 @@ jobs:
 
       # Step 4: Run tests
       - name: Run tests
-        run: npm test || true  # Continues with exit code 0 even if tests fail  
+        run: npm test -- --passWithNoTests  # Passes even with no tests
 
       # Step 5: Build the app
       - name: Build app
