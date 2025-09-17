@@ -45,16 +45,40 @@ const Projects = forwardRef((props, ref) => {
     ];
 
     return (
-        <section ref={ref} id="projects" className="max-w-4xl mx-auto p-8 bg-opacity-20 bg-purple-800 rounded-xl mb-8 shadow-md opacity-0 translate-y-10 transition-all duration-700">
+        <section
+            ref={ref}
+            id="projects"
+            className="max-w-4xl mx-auto p-8 bg-opacity-20 bg-purple-800 rounded-xl mb-8 shadow-md opacity-0 translate-y-10 transition-all duration-700"
+        >
             <h2 className="text-4xl font-bold text-center mb-6 text-pink-300">Projects</h2>
             {projects.map((project) => (
-                <article key={project.title} className="bg-opacity-50 bg-indigo-900 p-6 rounded-xl mb-6 hover:bg-opacity-70 hover:-translate-y-2 transition-all duration-500 shadow-lg">
+                <article
+                    key={project.title}
+                    className="bg-opacity-50 bg-indigo-900 p-6 rounded-xl mb-6 hover:bg-opacity-70 hover:-translate-y-2 transition-all duration-500 shadow-lg"
+                >
                     <h3 className="text-xl font-semibold text-purple-300">{project.title}</h3>
-                    <p><strong className="text-pink-300">Technologies:</strong> {project.technologies}</p>
-                    <p><strong className="text-pink-300">Duration:</strong> {project.duration}</p>
-                    <p><strong className="text-pink-300">Overview:</strong> {project.overview}</p>
-                    <p><strong className="text-pink-300">Challenges Solved:</strong> {project.challenges}</p>
-                    <p><a href={project.github} className="text-blue-300 hover:text-blue-100 transition-colors duration-300">View on GitHub</a></p>
+                    <p>
+                        <strong className="text-pink-300">Technologies:</strong> {project.technologies}
+                    </p>
+                    <p>
+                        <strong className="text-pink-300">Duration:</strong> {project.duration}
+                    </p>
+                    <p>
+                        <strong className="text-pink-300">Overview:</strong> {project.overview}
+                    </p>
+                    <p>
+                        <strong className="text-pink-300">Challenges Solved:</strong> {project.challenges}
+                    </p>
+                    <p>
+                        <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-300 hover:text-blue-100 transition-colors duration-300"
+                        >
+                            View on GitHub
+                        </a>
+                    </p>
                 </article>
             ))}
         </section>
