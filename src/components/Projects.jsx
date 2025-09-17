@@ -16,7 +16,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'JULY 2025',
       overview: 'Built and deployed a web application using Docker containers to ensure consistent environments across development and production.',
       challenges: 'Optimized Docker images for faster builds and deployments.',
-      github: 'https://github.com/awaisafzal96/docker-portofolio', // Corrected from "portofolio"
+      github: 'https://github.com/awaisafzal96/docker-portofolio',
     },
     {
       title: 'Kubernetes Cluster Management',
@@ -24,7 +24,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'AUGUST-SEP 2025',
       overview: 'Set up a Kubernetes cluster to manage containerized applications, implementing scaling and load balancing.',
       challenges: 'Ensured high availability and efficient resource utilization.',
-      github: 'https://github.com/awaisafzal96', // Temporary placeholder
+      github: 'https://github.com/awaisafzal96',
     },
     {
       title: 'AWS Infrastructure Setup',
@@ -32,7 +32,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'SEP 2025',
       overview: 'Configured AWS infrastructure for a web application, including EC2 instances, S3 storage, and IAM roles.',
       challenges: 'Secured infrastructure with proper IAM policies and networking.',
-      github: 'https://github.com/awaisafzal96', // Temporary placeholder
+      github: 'https://github.com/awaisafzal96',
     },
     {
       title: 'Terraform Infrastructure as Code',
@@ -40,7 +40,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'SEP-OCT 2025',
       overview: 'Used Terraform to define and provision cloud infrastructure on AWS, enabling reproducible and scalable deployments.',
       challenges: 'Managed state files and modularized Terraform code for reusability.',
-      github: 'https://github.com/awaisafzal96', // Temporary placeholder
+      github: 'https://github.com/awaisafzal96',
     },
   ];
 
@@ -85,4 +85,4 @@ const Projects = forwardRef((props, ref) => {
   );
 });
 
-export { Projects };
+export default Projects;

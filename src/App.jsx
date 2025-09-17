@@ -1,10 +1,9 @@
-// src/App.jsx
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import About from './components/About';
 import Skills from './components/Skills';
-import Projects from './components/Projects';
+import Projects from './components/Projects'; // make sure Projects.jsx has "export default Projects"
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -14,11 +13,13 @@ const App = () => {
   const [theme, setTheme] = useState(localStorage.getItem('theme') || 'dark');
   const sectionsRef = useRef([]);
 
+  // Save & apply theme
   useEffect(() => {
     document.body.className = theme;
     localStorage.setItem('theme', theme);
   }, [theme]);
 
+  // Animate sections when in view
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -48,15 +49,15 @@ const App = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
 
-  // Cycle between dark -> green -> grey
+  // Cycle theme: dark → green → grey
   const toggleTheme = () => {
-    if (theme === 'dark') {
-      setTheme('green');
-    } else if (theme === 'green') {
-      setTheme('grey');
-    } else {
-      setTheme('dark');
-    }
+    setTheme((prevTheme) =>
+      prevTheme === 'dark'
+        ? 'green'
+        : prevTheme === 'green'
+        ? 'grey'
+        : 'dark'
+    );
   };
 
   return (
@@ -70,12 +71,15 @@ const App = () => {
       }`}
     >
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
+
+      {/* Mobile menu toggle */}
       <button
         onClick={toggleSidebar}
         className="md:hidden fixed top-4 left-4 z-50 bg-indigo-600 text-white p-3 rounded-full shadow-lg hover:bg-indigo-700 transition-all duration-300 text-2xl"
       >
         {isSidebarOpen ? '✕' : '☰'}
       </button>
+
       <main className="md:ml-64 p-4 transition-all duration-300">
         <Header ref={(el) => (sectionsRef.current[0] = el)} />
         <About ref={(el) => (sectionsRef.current[1] = el)} />
@@ -84,6 +88,7 @@ const App = () => {
         <Education ref={(el) => (sectionsRef.current[4] = el)} />
         <Contact ref={(el) => (sectionsRef.current[5] = el)} />
       </main>
+
       <Footer toggleTheme={toggleTheme} theme={theme} />
     </div>
   );
