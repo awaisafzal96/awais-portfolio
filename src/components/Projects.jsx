@@ -8,7 +8,7 @@ const Projects = forwardRef((props, ref) => {
             duration: 'JUNE-JULY 2025',
             overview: 'Developed a personal portfolio website hosted on GitHub Pages with automated CI/CD using GitHub Actions. The workflow includes linting, building, and deploying the site.',
             challenges: 'Automated deployment and ensured consistent styling across browsers.',
-            github: 'https://github.com/yourusername/portfolio',
+            github: 'https://github.com/awaisafzal96/awais-portfolio',
         },
         {
             title: 'Dockerized Web Sites',
@@ -16,7 +16,7 @@ const Projects = forwardRef((props, ref) => {
             duration: 'JULY 2025',
             overview: 'Built and deployed a web application using Docker containers to ensure consistent environments across development and production.',
             challenges: 'Optimized Docker images for faster builds and deployments.',
-            github: 'https://github.com/yourusername/docker-project',
+            github: 'https://github.com/awaisafzal96/docker-portofolio',
         },
         {
             title: 'Kubernetes Cluster Management',
