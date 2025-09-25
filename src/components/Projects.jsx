@@ -24,7 +24,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'AUGUST-SEP 2025',
       overview: 'Set up a Kubernetes cluster to manage containerized applications, implementing scaling and load balancing.',
       challenges: 'Ensured high availability and efficient resource utilization.',
-      github: 'https://github.com/awaisafzal96',
+      github: 'https://github.com/awaisafzal96/K8s-Portfolio',
     },
     {
       title: 'AWS Infrastructure Setup',
@@ -32,7 +32,7 @@ const Projects = forwardRef((props, ref) => {
       duration: 'SEP 2025',
       overview: 'Configured AWS infrastructure for a web application, including EC2 instances, S3 storage, and IAM roles.',
       challenges: 'Secured infrastructure with proper IAM policies and networking.',
-      github: 'https://github.com/awaisafzal96',
+      
     },
     {
       title: 'Terraform Infrastructure as Code',
