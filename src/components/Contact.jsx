@@ -1,5 +1,4 @@
 import React, { useState, useEffect, forwardRef } from 'react';
-import CV from './assets/cv.pdf'; // Adjust path if cv.pdf is in a different folder (e.g., src/assets/cv.pdf)
 
 const Contact = forwardRef((props, ref) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -41,7 +40,7 @@ const Contact = forwardRef((props, ref) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Validate form inputs
+
     if (!formData.name.trim()) {
       alert('Please enter your name.');
       document.querySelector('#name').focus();
@@ -57,16 +56,17 @@ const Contact = forwardRef((props, ref) => {
       document.querySelector('#message').focus();
       return;
     }
-    // Prepare form data for EmailJS
+
     const formDataToSend = {
       from_name: formData.name,
       from_email: formData.email,
       message: formData.message
     };
-    // Disable button during submission
+
     setIsSending(true);
+
     if (typeof window.emailjs !== 'undefined') {
-      window.emailjs.send('service_vdp57ue', 'template_jsdvg0o', formDataToSend) // Provided service and template IDs
+      window.emailjs.send('service_vdp57ue', 'template_jsdvg0o', formDataToSend)
         .then((response) => {
           console.log('EmailJS success:', response);
           alert('✅ Message sent successfully!');
@@ -91,8 +91,13 @@ const Contact = forwardRef((props, ref) => {
   };
 
   return (
-    <section ref={ref} id="contact" className="max-w-4xl mx-auto p-8 bg-opacity-20 bg-purple-800 rounded-xl mb-8 shadow-md opacity-0 translate-y-10 transition-all duration-700">
+    <section
+      ref={ref}
+      id="contact"
+      className="max-w-4xl mx-auto p-8 bg-opacity-20 bg-purple-800 rounded-xl mb-8 shadow-md opacity-0 translate-y-10 transition-all duration-700"
+    >
       <h2 className="text-4xl font-bold text-center mb-6 text-pink-300">Contact Me</h2>
+      
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-6">
         <label className="font-semibold text-purple-300">Name:</label>
         <input
@@ -104,6 +109,7 @@ const Contact = forwardRef((props, ref) => {
           className="p-3 rounded-lg bg-opacity-30 bg-indigo-900 text-white border border-purple-600 focus:border-pink-400 outline-none transition-all duration-300"
           placeholder="Your Name"
         />
+
         <label className="font-semibold text-purple-300">Email:</label>
         <input
           type="email"
@@ -114,6 +120,7 @@ const Contact = forwardRef((props, ref) => {
           className="p-3 rounded-lg bg-opacity-30 bg-indigo-900 text-white border border-purple-600 focus:border-pink-400 outline-none transition-all duration-300"
           placeholder="Your Email"
         />
+
         <label className="font-semibold text-purple-300">Message:</label>
         <textarea
           id="message"
@@ -123,6 +130,7 @@ const Contact = forwardRef((props, ref) => {
           className="p-3 rounded-lg bg-opacity-30 bg-indigo-900 text-white border border-purple-600 focus:border-pink-400 outline-none transition-all duration-300 resize-y min-h-[120px]"
           placeholder="Your Message"
         />
+
         <button
           type="submit"
           disabled={isSending}
@@ -131,9 +139,16 @@ const Contact = forwardRef((props, ref) => {
           {isSending ? 'Sending...' : 'Send Message'}
         </button>
       </form>
-      <p className="text-lg">Email: <a href="mailto:awai5.afz2l@gmail.com" className="text-blue-300 hover:text-blue-100">awai5.afz2l@gmail.com</a></p>
+
+      <p className="text-lg">
+        Email: <a href="mailto:awai5.afz2l@gmail.com" className="text-blue-300 hover:text-blue-100">awai5.afz2l@gmail.com</a>
+      </p>
       <p className="text-lg">Phone: 03186740221</p>
-      <p className="text-lg"><a href={CV} download="MyCV.pdf" className="text-blue-300 hover:text-blue-100">Download My CV (PDF)</a></p>
+      <p className="text-lg">
+        <a href="/cv.pdf" download="MyCV.pdf" className="text-blue-300 hover:text-blue-100">
+          Download My CV (PDF)
+        </a>
+      </p>
     </section>
   );
 });
