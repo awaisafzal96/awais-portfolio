@@ -3,44 +3,43 @@ import React, { useState, useEffect, forwardRef } from 'react';
 const Contact = forwardRef((props, ref) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [isSending, setIsSending] = useState(false);
+  const [emailjsLoaded, setEmailjsLoaded] = useState(false);
 
   useEffect(() => {
+    // Initialize EmailJS with retries
     const initEmailJS = () => {
-      return new Promise((resolve, reject) => {
-        let attempts = 0;
-        const maxAttempts = 3;
-        const initAttempt = () => {
-          try {
-            if (typeof window.emailjs !== 'undefined') {
-              window.emailjs.init('FT7rglcfZQkqlgUXG'); // Provided user ID
-              console.log('EmailJS initialized successfully');
-              resolve();
-            } else if (attempts < maxAttempts) {
-              attempts++;
-              console.warn(`EmailJS not loaded, retrying (${attempts}/${maxAttempts})...`);
-              setTimeout(initAttempt, 2000); // Retry after 2 seconds
-            } else {
-              reject(new Error('EmailJS library failed to load after maximum attempts'));
-            }
-          } catch (error) {
-            console.error('EmailJS initialization failed:', error);
-            reject(error);
-          }
-        };
-        initAttempt();
-      });
+      let attempts = 0;
+      const maxAttempts = 3;
+
+      const tryInit = () => {
+        attempts++;
+        if (window.emailjs) {
+          window.emailjs.init('FT7rglcfZQkqlgUXG'); // Replace with your EmailJS user ID
+          console.log('EmailJS initialized successfully');
+          setEmailjsLoaded(true);
+        } else if (attempts < maxAttempts) {
+          console.warn(`EmailJS not loaded, retrying (${attempts}/${maxAttempts})...`);
+          setTimeout(tryInit, 2000);
+        } else {
+          console.error('EmailJS failed to load after maximum attempts.');
+          alert('Failed to load contact form service. Please try again later.');
+        }
+      };
+
+      tryInit();
     };
-    initEmailJS()
-      .then(() => console.log('EmailJS initialization completed'))
-      .catch((error) => {
-        console.error('Failed to initialize EmailJS after retries:', error);
-        alert('Failed to initialize contact form service. Please check your internet connection or try again later.');
-      });
+
+    initEmailJS();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Validation
     if (!formData.name.trim()) {
       alert('Please enter your name.');
       document.querySelector('#name').focus();
@@ -57,37 +56,30 @@ const Contact = forwardRef((props, ref) => {
       return;
     }
 
-    const formDataToSend = {
-      from_name: formData.name,
-      from_email: formData.email,
-      message: formData.message
-    };
+    if (!emailjsLoaded) {
+      alert('Contact service not ready. Please wait a few seconds and try again.');
+      return;
+    }
 
     setIsSending(true);
 
-    if (typeof window.emailjs !== 'undefined') {
-      window.emailjs.send('service_vdp57ue', 'template_jsdvg0o', formDataToSend)
-        .then((response) => {
-          console.log('EmailJS success:', response);
-          alert('✅ Message sent successfully!');
-          setFormData({ name: '', email: '', message: '' });
-        })
-        .catch((error) => {
-          console.error('EmailJS error:', error);
-          alert('❌ Failed to send message. Please check your EmailJS configuration or try again.');
-        })
-        .finally(() => {
-          setIsSending(false);
-        });
-    } else {
-      console.error('EmailJS not initialized');
-      alert('Contact form service is not available. Please try again later.');
+    const templateParams = {
+      from_name: formData.name,
+      from_email: formData.email,
+      message: formData.message,
+    };
+
+    try {
+      const response = await window.emailjs.send('service_vdp57ue', 'template_jsdvg0o', templateParams);
+      console.log('EmailJS success:', response);
+      alert('✅ Message sent successfully!');
+      setFormData({ name: '', email: '', message: '' });
+    } catch (error) {
+      console.error('EmailJS error:', error);
+      alert('❌ Failed to send message. Please try again later.');
+    } finally {
       setIsSending(false);
     }
-  };
-
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   return (
@@ -97,7 +89,7 @@ const Contact = forwardRef((props, ref) => {
       className="max-w-4xl mx-auto p-8 bg-opacity-20 bg-purple-800 rounded-xl mb-8 shadow-md opacity-0 translate-y-10 transition-all duration-700"
     >
       <h2 className="text-4xl font-bold text-center mb-6 text-pink-300">Contact Me</h2>
-      
+
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 mb-6">
         <label className="font-semibold text-purple-300">Name:</label>
         <input
@@ -145,7 +137,11 @@ const Contact = forwardRef((props, ref) => {
       </p>
       <p className="text-lg">Phone: 03186740221</p>
       <p className="text-lg">
-        <a href="/cv.pdf" download="MyCV.pdf" className="text-blue-300 hover:text-blue-100">
+        <a
+          href={`${process.env.PUBLIC_URL}/cv.pdf`}
+          download="MyCV.pdf"
+          className="text-blue-300 hover:text-blue-100"
+        >
           Download My CV (PDF)
         </a>
       </p>
