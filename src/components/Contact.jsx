@@ -1,4 +1,5 @@
 import React, { useState, useEffect, forwardRef } from 'react';
+import CV from './assets/cv.pdf'; // Adjust path if cv.pdf is in a different folder (e.g., src/assets/cv.pdf)
 
 const Contact = forwardRef((props, ref) => {
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
@@ -30,7 +31,6 @@ const Contact = forwardRef((props, ref) => {
         initAttempt();
       });
     };
-
     initEmailJS()
       .then(() => console.log('EmailJS initialization completed'))
       .catch((error) => {
@@ -41,7 +41,6 @@ const Contact = forwardRef((props, ref) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     // Validate form inputs
     if (!formData.name.trim()) {
       alert('Please enter your name.');
@@ -58,17 +57,14 @@ const Contact = forwardRef((props, ref) => {
       document.querySelector('#message').focus();
       return;
     }
-
     // Prepare form data for EmailJS
     const formDataToSend = {
       from_name: formData.name,
       from_email: formData.email,
       message: formData.message
     };
-
     // Disable button during submission
     setIsSending(true);
-
     if (typeof window.emailjs !== 'undefined') {
       window.emailjs.send('service_vdp57ue', 'template_jsdvg0o', formDataToSend) // Provided service and template IDs
         .then((response) => {
@@ -137,7 +133,7 @@ const Contact = forwardRef((props, ref) => {
       </form>
       <p className="text-lg">Email: <a href="mailto:awai5.afz2l@gmail.com" className="text-blue-300 hover:text-blue-100">awai5.afz2l@gmail.com</a></p>
       <p className="text-lg">Phone: 03186740221</p>
-      <p className="text-lg"><a href="/cv.pdf" download className="text-blue-300 hover:text-blue-100">Download My CV (PDF)</a></p>
+      <p className="text-lg"><a href={CV} download="MyCV.pdf" className="text-blue-300 hover:text-blue-100">Download My CV (PDF)</a></p>
     </section>
   );
 });
