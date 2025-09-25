@@ -1,10 +1,10 @@
 {
   "files": {
-    "main.js": "/awais-portfolio/static/js/main.7d7022f2.js",
+    "main.js": "/awais-portfolio/static/js/main.b34a95d2.js",
     "index.html": "/awais-portfolio/index.html",
-    "main.7d7022f2.js.map": "/awais-portfolio/static/js/main.7d7022f2.js.map"
+    "main.b34a95d2.js.map": "/awais-portfolio/static/js/main.b34a95d2.js.map"
   },
   "entrypoints": [
-    "static/js/main.7d7022f2.js"
+    "static/js/main.b34a95d2.js"
   ]
 }
