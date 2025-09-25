@@ -7,7 +7,7 @@ const Education = forwardRef((props, ref) => {
             <div className="bg-opacity-50 bg-indigo-900 p-6 rounded-xl hover:bg-opacity-70 hover:-translate-y-2 transition-all duration-500 shadow-lg">
                 <h3 className="text-xl font-semibold text-purple-300">Bachelor of Science in Software Engineering (BSSE)</h3>
                 <p className="text-lg">University of Central Punjab, Lahore, Pakistan</p>
-                <p className="text-lg">2020 - 2025</p>
+                <p className="text-lg">2021 - 2025</p>
             </div>
         </section>
     );
